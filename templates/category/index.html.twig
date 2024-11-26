@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+<div class="container mt-5"> <br>
+    <h2 class="text-center">Liste des categories</h2>
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('app_category_add') }}" class="btn btn-primary">Ajouter une categorie</a>
+    </div></br>
+    {% if categories | length == 0 %}
+        <div class="alert alert-warning mt-4">
+            Aucune categorie n'est disponible pour le moment.
+        </div>
+    {% else %}
+        <table class="table table-striped mt-4">
+            <thead>
+            <tr>
+                <th scope="col">titre</th>
+                <th scope="col">description</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <th>{{ categorie.titre }}</th>
+                    <td>{{ categorie.description }}</td>
+                    <td>
+                    <td>
+                        <a href="{{ path('', {id: categorie.id}) }}" class="btn btn-outline-success">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{{ path('', {id:categorie.id}) }}" class="btn btn-outline-warning">
+                            <i class="bi bi-pen"></i>
+                        </a>
+                        <a href="{{ path('', { id: categorie.id }) }}" class="btn btn-outline-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </td>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
